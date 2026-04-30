@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/econlever-logo.png" alt="EconLever" width="160" />
+  <img src="./econlever-logo.png" alt="EconLever" width="160" />
 </p>
 
 # EconLever
