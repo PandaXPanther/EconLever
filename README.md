@@ -4,9 +4,6 @@
 
 # EconLever
 
-![EconLever Dashboard](./public/dashboard-preview.png)
-*(Note: Upload a screenshot of your dashboard to your public folder and update this link, or delete this line)*
-
 **Live Application:** [econlever.org](https://econlever.org)
 
 An interactive macroeconomic simulator visualizing the 10-year impact of fiscal and monetary policy on U.S. GDP, federal deficits, and income disparity. Calibrated to peer-reviewed economic literature and designed to generate ready-to-cite policy briefs for competitive debaters and AP Economics students.
