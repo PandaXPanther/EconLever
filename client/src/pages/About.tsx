@@ -1,0 +1,369 @@
+import { COEFFICIENTS, BASELINE } from "@/lib/engine";
+import { ArrowUpRight } from "lucide-react";
+
+export default function AboutPage() {
+  return (
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
+      {/* Page header */}
+      <div className="mb-10">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+          Documentation · v0.1
+        </div>
+        <h1 className="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-[1.15] text-foreground">
+          About &amp; Methodology
+        </h1>
+        <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-[60ch]">
+          EconLever is a transparent, closed-loop simulator built to make
+          macroeconomic trade-offs legible to debaters, students, and policy
+          researchers. This page documents the economic theory, the engine, and
+          the citations behind every coefficient.
+        </p>
+      </div>
+
+      <Section heading="Purpose">
+        <p>
+          High-school and college extemporaneous speakers, AP Economics students,
+          and policy debaters routinely need to cite the directional consequences
+          of fiscal and monetary policy in under 30 seconds of speaking time.
+          Existing tools are either too academic (DSGE/VAR models behind paywalls)
+          or too superficial (single-issue calculators). EconLever sits in
+          between: <strong className="text-foreground">simple enough to manipulate
+          live, transparent enough to defend in cross-examination.</strong>
+        </p>
+      </Section>
+
+      <Section heading="Theoretical Frame">
+        <p>
+          The simulator treats four policy levers as additive deviations from a
+          calibrated 2025 U.S. baseline. Each lever propagates through three
+          channels:
+        </p>
+        <ul className="mt-3 space-y-2 list-none">
+          <li className="flex gap-3">
+            <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Growth</span>
+            <span>Capital and labor-supply elasticities (supply-side channel) plus aggregate-demand multipliers (Keynesian channel).</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Deficit</span>
+            <span>Static revenue effects offset by dynamic feedback (Laffer-curve attenuation) and debt-service costs at higher policy rates.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Gini</span>
+            <span>Direct redistribution from transfers and progressive taxation, plus indirect inequality effects from monetary policy and corporate-tax incidence.</span>
+          </li>
+        </ul>
+        <p className="mt-4">
+          The Gini coefficient evolves with mean reversion: each year, the index
+          drifts back toward baseline at <strong className="text-foreground">8% per year</strong>
+          {" "}absent sustained policy pressure. This prevents single-shock policies
+          from compounding indefinitely and reflects the empirical persistence of
+          the U.S. income distribution.
+        </p>
+      </Section>
+
+      <Section heading="Calibration Baseline (2025)">
+        <p className="mb-4">
+          The 2025 baseline anchors every projection. It captures the U.S.
+          policy stance entering the simulation window and is drawn from
+          official long-run forecasts and statutory rates. Each lever’s neutral
+          point in the simulator equals the baseline value below.
+        </p>
+        <table className="w-full font-mono text-[12px] tabular-nums">
+          <thead>
+            <tr className="border-b border-border text-muted-foreground">
+              <Th>Variable</Th>
+              <Th align="right">Baseline</Th>
+              <Th align="right">Source</Th>
+            </tr>
+          </thead>
+          <tbody>
+            <Tr label="Potential real GDP growth" value={`${BASELINE.potentialGdpGrowth.toFixed(1)}%`} source="CBO Long-Run Outlook" />
+            <Tr label="Federal deficit (% GDP)" value={`${BASELINE.deficit.toFixed(1)}%`} source="OMB / CBO 2025" />
+            <Tr label="Gini coefficient (income)" value={BASELINE.gini.toFixed(3)} source="Census ACS, 2023" />
+            <Tr label="Top marginal tax rate" value={`${BASELINE.neutral.topMarginalTax}%`} source="IRC §1, post-TCJA" />
+            <Tr label="Corporate tax rate" value={`${BASELINE.neutral.corporateTax}%`} source="IRC §11, post-TCJA" />
+            <Tr label="Welfare spending (% GDP)" value={`${BASELINE.neutral.welfareSpending}%`} source="CBO Mandatory Outlays" />
+            <Tr label="Federal funds rate" value={`${BASELINE.neutral.fedFundsRate}%`} source="FOMC neutral estimate" />
+          </tbody>
+        </table>
+        <p className="mt-4 text-[12px]">
+          <strong className="text-foreground">Data sources at a glance:</strong>{" "}
+          long-run growth and deficit anchors come from the Congressional Budget
+          Office and Office of Management and Budget; statutory tax rates come
+          from the Internal Revenue Code as amended by the Tax Cuts and Jobs Act
+          (TCJA); the income Gini coefficient is reported by the U.S. Census
+          Bureau (ACS); the federal funds rate is the FOMC’s neutral estimate.
+        </p>
+      </Section>
+
+      <Section heading="Coefficient Table">
+        <p className="mb-4">
+          Each lever moves the three output channels by the per-percentage-point
+          coefficients below. <strong className="text-foreground">Each value is
+          calibrated to a specific peer-reviewed source</strong> documented in
+          the citations that follow.
+        </p>
+        <table className="w-full font-mono text-[11px] tabular-nums">
+          <thead>
+            <tr className="border-b border-border text-muted-foreground">
+              <Th>Lever</Th>
+              <Th align="right">GDP / pp</Th>
+              <Th align="right">Deficit / pp</Th>
+              <Th align="right">Gini / pp</Th>
+            </tr>
+          </thead>
+          <tbody>
+            <CoefRow label="Top Marginal Tax" c={COEFFICIENTS.topMarginalTax} />
+            <CoefRow label="Corporate Tax" c={COEFFICIENTS.corporateTax} />
+            <CoefRow label="Welfare Spending" c={COEFFICIENTS.welfareSpending} />
+            <CoefRow label="Federal Funds Rate" c={COEFFICIENTS.fedFundsRate} />
+          </tbody>
+        </table>
+      </Section>
+
+      {/* Citations section — finalized peer-reviewed sources */}
+      <Section heading="Citations &amp; Economic Engine">
+        <p className="mb-5">
+          The coefficients above are calibrated to the following peer-reviewed
+          literature. Each citation maps directly to a specific lever → channel
+          coefficient in the engine.
+        </p>
+
+        <CitationGroup title="Supply-side and marginal-tax effects">
+          <CitationItem
+            id="supply-side-1"
+            authors="Mertens, K. &amp; Ravn, M.O. (2013)."
+            title="The Dynamic Effects of Personal and Corporate Income Tax Changes in the United States."
+            venue="American Economic Review"
+            note="Calibrates the robust GDP response to corporate rate adjustments."
+          />
+          <CitationItem
+            id="supply-side-2"
+            authors="Piketty, T., Saez, E., &amp; Stantcheva, S. (2014)."
+            title="Optimal Taxation of Top Labor Incomes: A Tale of Three Elasticities."
+            venue="American Economic Journal: Economic Policy"
+            note="Validates the inverse relationship between top marginal rates and wealth concentration at the top centile."
+          />
+        </CitationGroup>
+
+        <CitationGroup title="Fiscal multipliers and welfare spending">
+          <CitationItem
+            id="multiplier-1"
+            authors="Ramey, V.A. (2011)."
+            title="Can Government Purchases Stimulate the Economy?"
+            venue="Journal of Economic Literature"
+            note="Establishes the baseline transfer multiplier used for welfare-spending coefficients."
+          />
+          <CitationItem
+            id="multiplier-2"
+            authors="Auerbach, A. &amp; Gorodnichenko, Y. (2012)."
+            title="Measuring the Output Responses to Fiscal Policy."
+            venue="American Economic Journal: Macroeconomics"
+          />
+        </CitationGroup>
+
+        <CitationGroup title="Monetary policy and distributional effects">
+          <CitationItem
+            id="monetary-1"
+            authors="Coibion, O., Gorodnichenko, Y., Kueng, L., &amp; Silvia, J. (2017)."
+            title="Innocent Bystanders? Monetary Policy and Inequality."
+            venue="Journal of Monetary Economics"
+            note="Provides the empirical basis for contractionary monetary policy expanding the Gini coefficient."
+          />
+          <CitationItem
+            id="monetary-2"
+            authors="Bernanke, B.S. &amp; Blinder, A.S. (1992)."
+            title="The Federal Funds Rate and the Channels of Monetary Transmission."
+            venue="American Economic Review"
+          />
+        </CitationGroup>
+      </Section>
+
+      <Section heading="Limitations">
+        <ul className="space-y-2 list-disc list-outside pl-5">
+          <li>
+            <strong className="text-foreground">Closed-loop, no shocks.</strong>{" "}
+            The model does not capture exogenous events (recessions, wars,
+            supply shocks) or international spillovers.
+          </li>
+          <li>
+            <strong className="text-foreground">Linear additive coefficients.</strong>{" "}
+            Real-world fiscal and monetary policy interact nonlinearly; results
+            will overstate effects at the extreme ends of slider ranges.
+          </li>
+          <li>
+            <strong className="text-foreground">No micro-foundations.</strong>{" "}
+            This is not a DSGE or VAR model. It is an illustrative mapping
+            calibrated to mainstream literature, not a forecasting tool.
+          </li>
+          <li>
+            <strong className="text-foreground">Gini ≠ wealth inequality.</strong>{" "}
+            The simulator uses the income Gini. Wealth Gini is structurally
+            higher (about 0.85 in the U.S.) and responds differently to
+            monetary policy.
+          </li>
+        </ul>
+      </Section>
+
+      <Section heading="About the Creator">
+        <div className="rounded-lg border border-card-border bg-card p-5 sm:p-6">
+          <div className="flex items-baseline justify-between gap-3 mb-2">
+            <h3 className="text-base font-semibold text-foreground tracking-tight">
+              Saras Totey
+            </h3>
+            <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
+              High School Student &amp; Research Analyst Assistant
+            </span>
+          </div>
+          <p className="text-[14px] leading-relaxed text-muted-foreground">
+            Saras Totey is a student at Fairview High School and a Research
+            Analyst Assistant at Northeastern University, where he assists with
+            research on the socioeconomic legacy of Reaganomics—specifically
+            analyzing how the 1981–1989 reduction in top marginal rates and
+            welfare retrenchment shaped post-tax income disparity.
+          </p>
+          <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+            A 2x National Economics Challenge (NEC) Qualifier and an
+            International Economics Olympiad (IEO) Winter Challenge Bronze
+            Medalist, Saras is also a competitive extemporaneous speaker and a
+            social-impact founder. He is dedicated to building tools that
+            translate dense economic research into accessible, decision-ready
+            interfaces for students, debaters, and civic audiences.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/saras-totey-64a777334/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+            data-testid="link-creator-linkedin"
+          >
+            LinkedIn
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+// ── primitives ──────────────────────────────────────────────────────────────
+
+function Section({ heading, children }: { heading: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-10 sm:mb-12">
+      <h2 className="text-[15px] font-semibold tracking-tight text-foreground mb-3 pb-2 border-b border-border">
+        <span className="text-muted-foreground font-mono text-xs mr-2">§</span>
+        <span dangerouslySetInnerHTML={{ __html: heading }} />
+      </h2>
+      <div className="text-[14px] leading-relaxed text-muted-foreground space-y-3">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function Th({ children, align = "left" }: { children: React.ReactNode; align?: "left" | "right" }) {
+  return (
+    <th
+      className={`py-2 text-[10px] uppercase tracking-[0.06em] font-semibold ${align === "right" ? "text-right" : "text-left"}`}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Tr({ label, value, source }: { label: string; value: string; source: string }) {
+  return (
+    <tr className="border-b border-border/60">
+      <td className="py-2 text-foreground">{label}</td>
+      <td className="py-2 text-right font-semibold text-foreground">{value}</td>
+      <td className="py-2 text-right text-muted-foreground">{source}</td>
+    </tr>
+  );
+}
+
+function CoefRow({
+  label,
+  c,
+}: {
+  label: string;
+  c: { gdpPerPoint: number; deficitPerPoint: number; giniPerPoint: number };
+}) {
+  return (
+    <tr className="border-b border-border/60">
+      <td className="py-2 text-foreground">{label}</td>
+      <td className="py-2 text-right">
+        <span className={c.gdpPerPoint >= 0 ? "text-[hsl(var(--growth))]" : "text-[hsl(var(--deficit))]"}>
+          {c.gdpPerPoint >= 0 ? "+" : ""}
+          {c.gdpPerPoint.toFixed(3)}
+        </span>
+      </td>
+      <td className="py-2 text-right">
+        <span className={c.deficitPerPoint >= 0 ? "text-[hsl(var(--deficit))]" : "text-[hsl(var(--growth))]"}>
+          {c.deficitPerPoint >= 0 ? "+" : ""}
+          {c.deficitPerPoint.toFixed(3)}
+        </span>
+      </td>
+      <td className="py-2 text-right">
+        <span className={c.giniPerPoint >= 0 ? "text-[hsl(var(--deficit))]" : "text-[hsl(var(--growth))]"}>
+          {c.giniPerPoint >= 0 ? "+" : ""}
+          {c.giniPerPoint.toFixed(4)}
+        </span>
+      </td>
+    </tr>
+  );
+}
+
+function CitationGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="mb-5">
+      <h3
+        className="text-[12px] font-semibold tracking-tight text-foreground mb-2"
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
+      <ol className="space-y-1.5 list-none">{children}</ol>
+    </div>
+  );
+}
+
+function CitationItem({
+  id,
+  authors,
+  title,
+  venue,
+  note,
+  highlight = false,
+}: {
+  id: string;
+  authors: string;
+  title: string;
+  venue: string;
+  note?: string;
+  highlight?: boolean;
+}) {
+  return (
+    <li
+      id={`cite-${id}`}
+      className={`text-[12px] leading-relaxed pl-3 border-l-2 ${
+        highlight
+          ? "border-[hsl(var(--growth))] text-foreground"
+          : "border-border text-muted-foreground"
+      }`}
+    >
+      <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground mr-2">
+        [{id}]
+      </span>
+      <span
+        className="font-semibold text-foreground"
+        dangerouslySetInnerHTML={{ __html: authors }}
+      />
+      {" "}
+      <span dangerouslySetInnerHTML={{ __html: `“${title}”` }} />
+      {" "}
+      <em className="not-italic text-muted-foreground">{venue}</em>.
+      {note ? (
+        <span className="text-muted-foreground"> {note}</span>
+      ) : null}
+    </li>
+  );
+}
