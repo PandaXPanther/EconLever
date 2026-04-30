@@ -1,98 +1,64 @@
-# EconLever
+EconLever
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/d4ded923-17a4-4031-a2e4-699e3a65fea7" />
 
-A transparent, closed-loop simulator that maps four U.S. policy levers (top marginal tax, corporate tax, social welfare spending, federal funds rate) to a 10-year projection of GDP growth, the federal deficit, and the Gini coefficient. Built for debaters, students, and policy researchers.
 
-Live: https://econlever.pplx.app
+Live Application: econlever.org
 
-## Tech stack
+An interactive macroeconomic simulator visualizing the 10-year impact of fiscal and monetary policy on U.S. GDP, federal deficits, and income disparity. Calibrated to peer-reviewed economic literature and designed to generate ready-to-cite policy briefs for competitive debaters and AP Economics students.
 
-- **Vite 7** + **React 18** + **TypeScript**
-- **Tailwind CSS v3** + **shadcn/ui** + **Radix primitives**
-- **Recharts** for visualizations
-- **jsPDF** + **html2canvas** for one-page Policy Brief export
-- **Express** dev server (only used locally — see Deployment notes)
-- **wouter** with hash-based routing
+About the Creator
+Saras Totey | High School Student & Research Analyst Assistant
 
-## Local development
+Saras is a student at Fairview High School and a Research Analyst Assistant at Northeastern University, where he assists with research on the socioeconomic legacy of Reaganomics. A 2x National Economics Challenge (NEC) Qualifier and an International Economics Olympiad (IEO) Winter Challenge Bronze Medalist, Saras is dedicated to building tools that translate dense economic research into accessible, decision-ready interfaces for students, debaters, and civic audiences.
 
-```bash
+Key Features
+Interactive Policy Levers: Adjust top marginal tax rates, corporate tax rates, social welfare spending, and the federal funds rate.
+
+Real-Time Data Visualization: Instant, responsive 10-year projections of the Gini coefficient, real GDP growth, and the federal deficit.
+
+Dynamic Analysis Engine: Generates rule-based economic summaries based on user inputs and policy quadrants.
+
+Policy Brief Export: Client-side PDF generation that formats charts, slider states, and analysis into a clean, one-page brief for use in debate rounds.
+
+The Economic Engine & Methodology
+The simulator engine treats four policy levers as additive deviations from a calibrated 2025 U.S. baseline. The coefficients driving the simulator are calibrated to mainstream macroeconomic literature, including Mertens & Ravn (2013) for supply-side dynamics, Ramey (2011) for fiscal multipliers, and Coibion et al. (2017) for the distributional effects of monetary policy.
+
+(For full methodology and citations, visit the About section in the live application).
+
+Tech Stack
+Frontend: Vite 7 + React 18 + TypeScript
+
+Styling: Tailwind CSS v3 + shadcn/ui
+
+Data Visualization: Recharts
+
+PDF Generation: jsPDF + html2canvas
+
+Routing: wouter (hash-based routing)
+
+Local Development
+Clone the repository and install dependencies:
+
+Bash
 npm install
 npm run dev
-```
-
 The dev server runs at http://localhost:5000. Vite handles the React app; Express serves it through a thin wrapper.
 
-## Build
+Build Process & Deployment
+To create a production build:
 
-```bash
+Bash
 npm run build
-```
+Output: dist/public/ — static frontend bundle (HTML/CSS/JS).
 
-Output:
-- `dist/public/` — static frontend bundle (HTML/CSS/JS)
-- `dist/index.cjs` — bundled Node server (only needed if deploying with the Express wrapper)
+Vercel Deployment:
+This project is deployed as a static client-side React SPA.
 
-## Project structure
+Import the repository on Vercel.
 
-```
-client/
-  index.html              # HTML entry, sets <title> and meta tags
-  src/
-    main.tsx              # React mount point
-    App.tsx               # Router + theme provider
-    index.css             # Tailwind base + design tokens
-    pages/
-      Simulator.tsx       # Main dashboard (sliders, charts, stat tiles)
-      About.tsx           # Methodology, citations, calibration baseline
-    components/
-      Logo.tsx            # SVG lever-and-fulcrum mark
-      SiteHeader.tsx      # Top nav with logo + theme toggle
-      SiteFooter.tsx
-      PolicySlider.tsx    # Slider with numeric input + tooltip
-      StatTile.tsx        # KPI tile with delta arrow + definition tooltip
-      AnalysisPanel.tsx
-      PolicyBriefDocument.tsx  # Off-screen template for PDF export
-      charts/
-        GiniChart.tsx
-        GdpDeficitChart.tsx
-      ui/                 # shadcn/ui primitives
-    lib/
-      engine.ts           # Core economic engine — simulate(), PRESETS, BASELINE
-      exportPdf.ts        # html2canvas + jsPDF Policy Brief generator
-      queryClient.ts
-      utils.ts
-server/                   # Express dev server — NOT used on Vercel
-shared/
-  schema.ts               # Zod schemas (currently unused; ready for backend)
-script/
-  build.ts                # Custom build orchestrator (Vite + esbuild server bundle)
-```
+Set Framework preset to Vite.
 
-## Deploying to Vercel
+Set Build command to npm run build and Output directory to dist/public.
 
-This project ships with an Express dev wrapper that is NOT needed in production — the entire app is a static client-side React SPA. For Vercel, deploy the static build:
-
-1. Push this repo to GitHub.
-2. Import it on Vercel.
-3. Configure the project:
-   - **Framework preset:** Other (or Vite)
-   - **Build command:** `npm run build`
-   - **Output directory:** `dist/public`
-   - **Install command:** `npm install`
-4. Deploy.
-
-Because routing is **hash-based** (`/#/`, `/#/about`), no `vercel.json` rewrites are needed — every navigation stays on `index.html`.
-
-### Optional: lighter Vite-only build
-
-If you want to drop the Express bundle entirely, you can replace `npm run build` with a direct Vite build by editing `package.json`:
-
-```json
-"build": "vite build --config vite.config.ts"
-```
-
-Then the `dist/index.cjs` server bundle is no longer produced. The static output in `dist/public/` is identical.
-
-## License
-
+License
 Educational simulator. Outputs are illustrative and not investment advice.
