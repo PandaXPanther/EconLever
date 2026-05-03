@@ -222,7 +222,7 @@ export const PolicyBriefDocument = forwardRef<HTMLDivElement, BriefProps>(
             analysis. See methodology page for full citations.
           </span>
           <span style={{ whiteSpace: "nowrap", marginLeft: 12 }}>
-            Saras Totey · econlever.org
+            Saras Totey · econ.mom
           </span>
         </div>
       </div>
