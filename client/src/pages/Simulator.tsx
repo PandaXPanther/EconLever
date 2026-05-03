@@ -14,6 +14,7 @@ import { PolicyBriefDocument } from "@/components/PolicyBriefDocument";
 import { exportPolicyBriefAsPdf } from "@/lib/exportPdf";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useSeo } from "@/hooks/use-seo";
 import { Download, RotateCcw, Loader2 } from "lucide-react";
 
 const DEFAULT_LEVERS: PolicyLevers = {
@@ -24,6 +25,14 @@ const DEFAULT_LEVERS: PolicyLevers = {
 };
 
 export default function SimulatorPage() {
+  useSeo({
+    title: "EconLever Simulator · Project U.S. GDP, Deficit & Inequality (2026–2036)",
+    description:
+      "Move four policy levers (top marginal tax, corporate tax, welfare spending, federal funds rate) and watch a 10-year projection of U.S. GDP growth, the federal deficit, and the Gini coefficient. Export a one-page Policy Brief.",
+    canonical: "https://econlever.org/#/",
+    keywords:
+      "fiscal policy simulator, monetary policy simulator, GDP projection, federal deficit, Gini coefficient, top marginal tax, corporate tax, welfare spending, federal funds rate, policy debate",
+  });
   const [levers, setLevers] = useState<PolicyLevers>(DEFAULT_LEVERS);
   const [activePreset, setActivePreset] = useState<string>("current");
   const [exporting, setExporting] = useState(false);
@@ -74,26 +83,20 @@ export default function SimulatorPage() {
 
   const activeScenario =
     activePreset === "custom"
-      ? { label: "Custom Scenario", description: "Your own lever mix — adjust freely." }
+      ? { label: "Custom Scenario", description: "Your own lever mix. Adjust freely." }
       : PRESETS.find((x) => x.id === activePreset) ?? PRESETS[0];
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 sm:px-6 py-6 sm:py-8">
       {/* Hero / page title */}
       <section className="mb-6">
-        <div className="flex items-center gap-2 mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--growth))]" />
-          U.S. Macroeconomic Simulator · 2026–2036
-        </div>
         <h1 className="text-xl sm:text-[28px] font-semibold tracking-tight text-foreground leading-tight max-w-3xl">
-          Adjust four policy levers. See how fiscal &amp; monetary choices shape{" "}
-          <span className="text-[hsl(var(--growth))]">growth</span>,{" "}
-          <span className="text-[hsl(var(--deficit))]">disparity</span>, and the deficit.
+          Four policy levers. Ten years of U.S. growth, deficit, and inequality.
         </h1>
         <p className="mt-2 text-sm text-muted-foreground max-w-2xl leading-relaxed">
-          A closed-loop pedagogical model calibrated to mainstream macroeconomic
-          literature. Drag a slider, watch the 10-year projection update, and export a
-          ready-to-cite Policy Brief.
+          Move a slider, watch the projection redraw. The model is intentionally simple:
+          additive coefficients calibrated to peer-reviewed macro studies, applied to a
+          2025 U.S. baseline. Export a one-page brief when you find a scenario worth defending.
         </p>
       </section>
 
@@ -104,51 +107,51 @@ export default function SimulatorPage() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-              <span
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--growth))] motion-safe:animate-pulse"
-                aria-hidden
-              />
-              Currently viewing
-            </div>
             <h2
               id="active-scenario-heading"
-              className="mt-1 text-base sm:text-lg font-semibold tracking-tight text-foreground"
+              className="text-base sm:text-lg font-semibold tracking-tight text-foreground"
               data-testid="text-active-scenario"
             >
               {activeScenario.label}
             </h2>
-            <p className="mt-0.5 text-[12px] text-muted-foreground leading-snug max-w-2xl">
+            <p className="mt-1 text-[12px] text-muted-foreground leading-snug max-w-2xl">
               {activeScenario.description}
             </p>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+          {/*
+            On mobile (full-width row): split 50/50 and let the longer label
+            wrap or truncate so the Export button never overflows the card.
+            On sm+ both buttons size to content.
+          */}
+          <div className="grid grid-cols-2 sm:flex sm:items-center sm:justify-end gap-2 w-full sm:w-auto shrink-0">
             <Button
               onClick={reset}
               variant="outline"
               size="sm"
-              className="gap-1.5 h-9"
+              className="gap-1.5 h-9 w-full sm:w-auto justify-center px-3"
               data-testid="button-reset"
             >
-              <RotateCcw className="h-3.5 w-3.5" aria-hidden />
-              Reset to baseline
+              <RotateCcw className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              <span className="truncate">Reset to baseline</span>
             </Button>
             <Button
               onClick={handleExport}
               disabled={exporting}
               size="sm"
-              className="gap-1.5 h-9"
+              className="gap-1.5 h-9 w-full sm:w-auto justify-center px-3"
               data-testid="button-export-brief"
             >
               {exporting ? (
                 <>
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
-                  Generating…
+                  <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin" aria-hidden />
+                  <span className="truncate">Generating…</span>
                 </>
               ) : (
                 <>
-                  <Download className="h-3.5 w-3.5" aria-hidden />
-                  Export Policy Brief (PDF)
+                  <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  {/* Short label on mobile, full label on sm+ */}
+                  <span className="truncate sm:hidden">Export PDF</span>
+                  <span className="hidden sm:inline truncate">Export Policy Brief (PDF)</span>
                 </>
               )}
             </Button>
@@ -171,29 +174,22 @@ export default function SimulatorPage() {
               aria-current={isActive ? "true" : undefined}
               onClick={() => applyPreset(p.id)}
               data-testid={`button-preset-${p.id}`}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors hover-elevate active-elevate-2 ${
+              className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors hover-elevate active-elevate-2 ${
                 isActive
-                  ? "border-foreground bg-foreground text-background shadow-sm ring-2 ring-foreground/20 ring-offset-1 ring-offset-background"
+                  ? "border-foreground bg-foreground text-background shadow-sm"
                   : "border-border bg-card text-foreground"
               }`}
               title={p.description}
             >
-              {isActive && (
-                <span
-                  className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--growth))]"
-                  aria-hidden
-                />
-              )}
               {p.label}
             </button>
           );
         })}
         {activePreset === "custom" && (
           <span
-            className="inline-flex items-center gap-1.5 rounded-full border border-foreground bg-foreground text-background px-3 py-1 text-xs font-medium shadow-sm ring-2 ring-foreground/20 ring-offset-1 ring-offset-background"
+            className="inline-flex items-center rounded-full border border-foreground bg-foreground text-background px-3 py-1 text-xs font-medium shadow-sm"
             data-testid="chip-custom-active"
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--growth))]" aria-hidden />
             Custom
           </span>
         )}
@@ -208,7 +204,7 @@ export default function SimulatorPage() {
               <div>
                 <h2 className="text-sm font-semibold tracking-tight">Policy Levers</h2>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
-                  Drag the slider or type a value. Vertical line marks the U.S. baseline.
+                  Drag a slider or type a value. The thin vertical line is the U.S. baseline.
                 </p>
               </div>
             </div>
@@ -216,7 +212,7 @@ export default function SimulatorPage() {
               <PolicySlider
                 label="Top Marginal Income Tax"
                 description="Personal income tax on top bracket"
-                definition="Highest federal income tax rate paid on the top slice of an individual's income. U.S. baseline (2025): 37%."
+                definition="Federal tax rate on the top slice of personal income. 2025 U.S. baseline: 37%."
                 value={levers.topMarginalTax}
                 min={10}
                 max={70}
@@ -228,7 +224,7 @@ export default function SimulatorPage() {
               <PolicySlider
                 label="Corporate Income Tax"
                 description="Statutory federal corporate rate"
-                definition="Statutory federal tax rate on corporate profits. U.S. baseline (2025): 21% (post-TCJA)."
+                definition="Statutory federal tax rate on corporate profits. 2025 baseline: 21% (post-TCJA)."
                 value={levers.corporateTax}
                 min={10}
                 max={40}
@@ -240,7 +236,7 @@ export default function SimulatorPage() {
               <PolicySlider
                 label="Social Welfare Spending"
                 description="Federal transfers as % of GDP"
-                definition="Federal transfer payments (Social Security, Medicare, Medicaid, SNAP, unemployment, etc.) as a share of GDP. U.S. baseline (2025): ~15% of GDP."
+                definition="Federal transfer payments (Social Security, Medicare, Medicaid, SNAP) as a share of GDP. 2025 baseline: ~15%."
                 value={levers.welfareSpending}
                 min={5}
                 max={30}
@@ -252,7 +248,7 @@ export default function SimulatorPage() {
               <PolicySlider
                 label="Federal Funds Rate"
                 description="Fed target overnight rate"
-                definition="The Fed's target overnight interbank lending rate — the primary tool of U.S. monetary policy. Higher rates restrain inflation but slow growth. U.S. baseline (2025): 4.50%."
+                definition="The Fed's target overnight rate. Main tool of monetary policy. 2025 baseline: 4.50%."
                 value={levers.fedFundsRate}
                 min={0}
                 max={10}
@@ -263,9 +259,6 @@ export default function SimulatorPage() {
               />
             </div>
           </div>
-          <p className="text-[11px] text-muted-foreground text-center">
-            Tip: Export a one-page Policy Brief any time — charts, analysis, and lever readouts.
-          </p>
         </aside>
 
         {/* Visualization area */}
@@ -280,7 +273,7 @@ export default function SimulatorPage() {
               deltaLabel={`${(result.avgGdpGrowth - BASELINE.potentialGdpGrowth >= 0 ? "+" : "")}${(result.avgGdpGrowth - BASELINE.potentialGdpGrowth).toFixed(2)} pp`}
               tone="growth"
               hint="vs. potential"
-              definition="Average annual real (inflation-adjusted) GDP growth across the 10-year projection. Compared to the U.S. potential growth rate (~1.8%)."
+              definition="Average annual real GDP growth across the projection. Compared against U.S. potential growth (~1.8%)."
             />
             <StatTile
               label="Cumul. Deficit"
@@ -288,7 +281,7 @@ export default function SimulatorPage() {
               unit="% GDP"
               tone="deficit"
               hint="10-yr sum"
-              definition="Sum of the federal deficit (% of GDP) across all 10 projected years. Positive numbers mean the government spent more than it collected."
+              definition="Federal deficit summed over 10 years (% of GDP). Positive means the government spent more than it collected."
             />
             <StatTile
               label="Final Gini"
@@ -297,13 +290,13 @@ export default function SimulatorPage() {
               deltaLabel={`${result.giniDelta >= 0 ? "+" : ""}${result.giniDelta.toFixed(3)}`}
               tone={giniDeltaTone}
               hint="Δ vs. baseline"
-              definition="Income Gini coefficient at the end of the projection. 0 = perfect equality; 1 = one household earns everything. U.S. baseline (2025): 0.415."
+              definition="Income Gini coefficient at the end of the projection. 0 = perfect equality, 1 = one household earns everything. 2025 baseline: 0.415."
             />
             <StatTile
               label="Regime"
               value={result.regime.split(" ")[0]}
               hint={result.regime}
-              definition="Qualitative classification of the policy mix based on the four lever settings (e.g., expansionary fiscal, tight monetary)."
+              definition="How the engine labels the current lever mix (supply-side, Keynesian, austerity, redistributive, or centrist)."
             />
           </div>
 

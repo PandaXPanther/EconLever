@@ -270,11 +270,11 @@ export function generateAnalysis(
 
   const bodyByRegime: Record<PolicyRegime, string> = {
     "Supply-Side": [
-      `By compressing marginal and corporate tax rates, the policy mix incentivizes private capital investment and short-run output. The simulator projects average real GDP growth of ${avgGdpGrowth.toFixed(2)}%, but with thinner social transfers, the gains accrue disproportionately to capital-holders — wealth concentration deepens and the Gini coefficient moves to ${finalGini.toFixed(3)}.`,
-      `This pattern echoes the 1981–1989 Reagan-era reduction in top marginal rates: stronger headline growth coincided with a structural rise in pre-tax income disparity, which post-tax transfers were not large enough to offset.`,
+      `Lower marginal and corporate rates shift the mix toward private capital investment and short-run output. Projected average real GDP growth comes in at ${avgGdpGrowth.toFixed(2)}%. With thinner transfers, those gains land disproportionately at the top, and the Gini coefficient drifts to ${finalGini.toFixed(3)}.`,
+      `The pattern echoes 1981 to 1989: stronger headline growth alongside a structural rise in pre-tax disparity that post-tax transfers were not large enough to absorb.`,
     ].join(" "),
     "Keynesian Expansion": [
-      `Expansive welfare spending paired with accommodative monetary policy injects liquidity at the lower end of the distribution, where the marginal propensity to consume is highest. Aggregate demand strengthens — projected average growth ${avgGdpGrowth.toFixed(2)}% — and the deficit widens to a cumulative ${cumulativeDeficit.toFixed(1)}% of GDP across the decade.`,
+      `Expansive welfare spending and an accommodative Fed inject liquidity at the bottom of the distribution, where the marginal propensity to consume is highest. Aggregate demand strengthens. Projected average growth: ${avgGdpGrowth.toFixed(2)}%. The cumulative deficit widens to ${cumulativeDeficit.toFixed(1)}% of GDP across the decade.`,
       `Inequality narrows because transfers act as a direct redistributive channel; the fiscal multiplier compounds the labor share of income.`,
     ].join(" "),
     "Austerity / Restrictive": [

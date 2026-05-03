@@ -30,7 +30,10 @@ export async function exportPolicyBriefAsPdf(
 
   try {
     const canvas = await html2canvas(briefEl, {
-      scale: 2,
+      // Higher scale = sharper text in the rasterized PDF (less blur,
+      // visibly thicker strokes). 3x is the sweet spot before file size
+      // balloons.
+      scale: 3,
       backgroundColor: "#ffffff",
       useCORS: true,
       logging: false,
@@ -52,8 +55,8 @@ export async function exportPolicyBriefAsPdf(
     // Embed proper PDF metadata so the document title shows the brand
     // (visible in browser PDF tab titles, OS file inspectors, and most readers).
     pdf.setProperties({
-      title: "EconLever — Policy Brief",
-      subject: "U.S. Fiscal & Monetary Policy Simulation — 10-Year Projection",
+      title: "EconLever Policy Brief",
+      subject: "U.S. Fiscal & Monetary Policy Simulation, 10-Year Projection",
       author: "EconLever",
       creator: "EconLever",
       keywords: "EconLever, policy, fiscal, monetary, GDP, deficit, Gini",

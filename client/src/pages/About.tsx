@@ -1,72 +1,77 @@
 import { COEFFICIENTS, BASELINE } from "@/lib/engine";
 import { ArrowUpRight } from "lucide-react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function AboutPage() {
+  useSeo({
+    title: "Methodology & Citations · EconLever",
+    description:
+      "How EconLever works: the 2025 U.S. baseline, lever-to-channel coefficients, and the peer-reviewed literature behind every parameter (Mertens & Ravn 2013, Ramey 2011, Auerbach & Gorodnichenko 2012, Coibion et al. 2017, Bernanke & Blinder 1992).",
+    canonical: "https://econlever.org/#/about",
+    keywords:
+      "econlever methodology, fiscal multiplier coefficients, Mertens Ravn 2013, Ramey 2011, Coibion 2017, Auerbach Gorodnichenko, Bernanke Blinder, Gini coefficient model, macroeconomic simulator citations",
+  });
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
       {/* Page header */}
       <div className="mb-10">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-          Documentation · v0.1
-        </div>
         <h1 className="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-[1.15] text-foreground">
           About &amp; Methodology
         </h1>
         <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-[60ch]">
-          EconLever is a transparent, closed-loop simulator built to make
-          macroeconomic trade-offs legible to debaters, students, and policy
-          researchers. This page documents the economic theory, the engine, and
-          the citations behind every coefficient.
+          EconLever was built so debaters and AP Econ students can sketch a fiscal or
+          monetary scenario in 30 seconds and walk away with something they can actually
+          cite. This page lays out what is under the hood: the theory, the engine, and
+          the papers behind each coefficient.
         </p>
       </div>
 
       <Section heading="Purpose">
         <p>
-          High-school and college extemporaneous speakers, AP Economics students,
-          and policy debaters routinely need to cite the directional consequences
-          of fiscal and monetary policy in under 30 seconds of speaking time.
-          Existing tools are either too academic (DSGE/VAR models behind paywalls)
-          or too superficial (single-issue calculators). EconLever sits in
-          between: <strong className="text-foreground">simple enough to manipulate
-          live, transparent enough to defend in cross-examination.</strong>
+          Most economics tools sit at one of two extremes. On one end you have DSGE
+          and VAR models locked behind paywalls and PhD prerequisites. On the other,
+          there are single-issue calculators that answer one question and stop. Neither
+          is useful when you have to defend a fiscal claim in cross-examination.
+        </p>
+        <p>
+          EconLever tries to live in the middle: <strong className="text-foreground">simple
+          enough to manipulate live in front of a judge, transparent enough that the
+          numbers are sourced and the assumptions are spelled out.</strong>
         </p>
       </Section>
 
       <Section heading="Theoretical Frame">
         <p>
-          The simulator treats four policy levers as additive deviations from a
-          calibrated 2025 U.S. baseline. Each lever propagates through three
-          channels:
+          Four policy levers are treated as additive deviations from a calibrated
+          2025 U.S. baseline. Each lever moves three channels:
         </p>
         <ul className="mt-3 space-y-2 list-none">
           <li className="flex gap-3">
             <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Growth</span>
-            <span>Capital and labor-supply elasticities (supply-side channel) plus aggregate-demand multipliers (Keynesian channel).</span>
+            <span>Capital and labor-supply elasticities on the supply side, plus aggregate-demand multipliers on the Keynesian side.</span>
           </li>
           <li className="flex gap-3">
             <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Deficit</span>
-            <span>Static revenue effects offset by dynamic feedback (Laffer-curve attenuation) and debt-service costs at higher policy rates.</span>
+            <span>Static revenue effects, attenuated by dynamic feedback (the Laffer curve) and pulled higher by debt-service costs when policy rates rise.</span>
           </li>
           <li className="flex gap-3">
             <span className="font-mono text-[11px] text-muted-foreground pt-0.5 w-20 shrink-0 uppercase tracking-wider">Gini</span>
-            <span>Direct redistribution from transfers and progressive taxation, plus indirect inequality effects from monetary policy and corporate-tax incidence.</span>
+            <span>Direct redistribution from transfers and progressive taxation, plus second-order inequality effects from monetary policy and corporate-tax incidence.</span>
           </li>
         </ul>
         <p className="mt-4">
-          The Gini coefficient evolves with mean reversion: each year, the index
-          drifts back toward baseline at <strong className="text-foreground">8% per year</strong>
-          {" "}absent sustained policy pressure. This prevents single-shock policies
-          from compounding indefinitely and reflects the empirical persistence of
-          the U.S. income distribution.
+          The Gini index is mean-reverting. Without sustained policy pressure it drifts
+          back toward baseline at <strong className="text-foreground">8% per year</strong>.
+          This keeps a one-time tax change from compounding forever and matches the
+          empirical stickiness of the U.S. income distribution.
         </p>
       </Section>
 
       <Section heading="Calibration Baseline (2025)">
         <p className="mb-4">
-          The 2025 baseline anchors every projection. It captures the U.S.
-          policy stance entering the simulation window and is drawn from
-          official long-run forecasts and statutory rates. Each lever’s neutral
-          point in the simulator equals the baseline value below.
+          The 2025 baseline anchors every projection. It captures the U.S. policy
+          stance entering the simulation window, drawn from official long-run forecasts
+          and statutory rates. Each lever’s neutral point matches the baseline value below.
         </p>
         <table className="w-full font-mono text-[12px] tabular-nums">
           <thead>
@@ -121,12 +126,11 @@ export default function AboutPage() {
         </table>
       </Section>
 
-      {/* Citations section — finalized peer-reviewed sources */}
+      {/* Citations section */}
       <Section heading="Citations &amp; Economic Engine">
         <p className="mb-5">
-          The coefficients above are calibrated to the following peer-reviewed
-          literature. Each citation maps directly to a specific lever → channel
-          coefficient in the engine.
+          Coefficients are calibrated to the following peer-reviewed work. Each
+          citation maps to a specific lever → channel value in the engine.
         </p>
 
         <CitationGroup title="Supply-side and marginal-tax effects">
@@ -217,18 +221,16 @@ export default function AboutPage() {
           </div>
           <p className="text-[14px] leading-relaxed text-muted-foreground">
             Saras Totey is a student at Fairview High School and a Research
-            Analyst Assistant at Northeastern University, where he assists with
-            research on the socioeconomic legacy of Reaganomics—specifically
-            analyzing how the 1981–1989 reduction in top marginal rates and
-            welfare retrenchment shaped post-tax income disparity.
+            Analyst Assistant at Northeastern University. His current research
+            looks at the socioeconomic legacy of Reaganomics, specifically how
+            the 1981 to 1989 reductions in top marginal rates and welfare spending
+            shaped post-tax income disparity.
           </p>
           <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-            A 2x National Economics Challenge (NEC) Qualifier and an
-            International Economics Olympiad (IEO) Winter Challenge Bronze
-            Medalist, Saras is also a competitive extemporaneous speaker and a
-            social-impact founder. He is dedicated to building tools that
-            translate dense economic research into accessible, decision-ready
-            interfaces for students, debaters, and civic audiences.
+            He is a 2x National Economics Challenge qualifier, an International
+            Economics Olympiad Winter Challenge bronze medalist, and a competitive
+            extemporaneous speaker. He builds tools that turn dense economics
+            research into something a student can actually use in a round.
           </p>
           <a
             href="https://www.linkedin.com/in/saras-totey-64a777334/"
