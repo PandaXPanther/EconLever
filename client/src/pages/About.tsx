@@ -23,7 +23,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
       {/* Page header */}
-      <div className="mb-10">
+      <div className="mb-8">
         <h1 className="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-[1.15] text-foreground">
           About &amp; Methodology
         </h1>
@@ -34,6 +34,32 @@ export default function AboutPage() {
           the papers behind each coefficient.
         </p>
       </div>
+
+      {/* econ.mom hub callout */}
+      <a
+        href="https://econ.mom"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="card-econ-mom"
+        className="group relative mb-12 block overflow-hidden rounded-xl border border-card-border bg-card p-5 sm:p-6 hover-elevate active-elevate-2"
+      >
+        <div className="absolute inset-y-0 left-0 w-[3px] tri-strip" aria-hidden />
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground" aria-hidden />
+              Project hub
+            </div>
+            <h2 className="mt-2 text-base font-semibold tracking-tight text-foreground">
+              EconLever now lives under <span className="font-editorial text-[hsl(var(--inequality))]">econ.mom</span>
+            </h2>
+            <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground max-w-[60ch]">
+              <span className="font-medium text-foreground">econ.mom</span> is the new main page for all of Saras Totey&apos;s economics projects — EconLever, ongoing Reaganomics research, and future tools all live there.
+            </p>
+          </div>
+          <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </div>
+      </a>
 
       <Section heading="Purpose">
         <p>

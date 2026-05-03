@@ -7,7 +7,17 @@ export function SiteFooter() {
           <span className="whitespace-nowrap">not investment advice.</span>
         </p>
         <p className="text-xs text-muted-foreground">
-          Developed by{" "}
+          Part of{" "}
+          <a
+            href="https://econ.mom"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+            data-testid="link-econ-mom"
+          >
+            econ.mom
+          </a>
+          {" "}· developed by{" "}
           <a
             href="https://www.linkedin.com/in/saras-totey-64a777334/"
             target="_blank"
