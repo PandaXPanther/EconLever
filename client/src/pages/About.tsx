@@ -274,11 +274,32 @@ export default function AboutPage() {
             A 2x National Economics Challenge (NEC) Qualifier and an
             International Economics Olympiad (IEO) Winter Challenge Bronze
             Medalist, Saras is also a competitive extemporaneous speaker and a
-            social-impact founder. He is dedicated to building tools that
-            translate dense economic research into accessible, decision-ready
-            interfaces for students, debaters, and civic audiences.
+            social-impact founder. He built and maintains{" "}
+            <a
+              href="https://econ.mom"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-econ-mom"
+            >
+              econ.mom
+            </a>
+            , the home for all of his economics projects — EconLever included.
+            He is dedicated to building tools that translate dense economic
+            research into accessible, decision-ready interfaces for students,
+            debaters, and civic audiences.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a
+              href="https://econ.mom"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-econ-mom-cta"
+            >
+              econ.mom
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
             <a
               href="https://www.linkedin.com/in/saras-totey-64a777334/"
               target="_blank"
