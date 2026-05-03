@@ -12,7 +12,7 @@ interface StatTileProps {
   unit?: string;
   delta?: number;
   deltaLabel?: string;
-  tone?: "neutral" | "growth" | "deficit";
+  tone?: "neutral" | "growth" | "deficit" | "inequality";
   hint?: string;
   /** Plain-language definition shown on hover/focus of the help icon. */
   definition?: string;
@@ -28,6 +28,7 @@ export function StatTile({ label, value, unit, delta, deltaLabel, tone = "neutra
     neutral: "text-muted-foreground",
     growth: "text-[hsl(var(--growth))]",
     deficit: "text-[hsl(var(--deficit))]",
+    inequality: "text-[hsl(var(--inequality))]",
   };
 
   return (

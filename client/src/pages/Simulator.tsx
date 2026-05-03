@@ -79,7 +79,8 @@ export default function SimulatorPage() {
     }
   }
 
-  const giniDeltaTone = result.giniDelta > 0.003 ? "deficit" : result.giniDelta < -0.003 ? "growth" : "neutral";
+  const giniDeltaTone =
+    result.giniDelta > 0.003 ? "inequality" : result.giniDelta < -0.003 ? "growth" : "neutral";
 
   const activeScenario =
     activePreset === "custom"
@@ -89,15 +90,63 @@ export default function SimulatorPage() {
   return (
     <div className="mx-auto max-w-[1400px] px-4 sm:px-6 py-6 sm:py-8">
       {/* Hero / page title */}
-      <section className="mb-6">
-        <h1 className="text-xl sm:text-[28px] font-semibold tracking-tight text-foreground leading-tight max-w-3xl">
-          Four policy levers. Ten years of U.S. growth, deficit, and inequality.
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground max-w-2xl leading-relaxed">
-          Move a slider, watch the projection redraw. The model is intentionally simple:
-          additive coefficients calibrated to peer-reviewed macro studies, applied to a
-          2025 U.S. baseline. Export a one-page brief when you find a scenario worth defending.
-        </p>
+      <section className="relative mb-6 overflow-hidden rounded-2xl border border-card-border bg-card/60 px-5 py-7 sm:px-8 sm:py-10">
+        {/* Aurora backdrop */}
+        <div className="aurora-stage" aria-hidden="true">
+          <div className="aurora-blob growth" />
+          <div className="aurora-blob inequality" />
+          <div className="aurora-blob deficit" />
+        </div>
+        <div className="relative z-10 hero-rise max-w-3xl">
+          <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground" aria-hidden />
+            Macro policy lab · 2026–2036
+          </div>
+          <h1 className="mt-3 text-[28px] sm:text-[40px] font-semibold tracking-tight text-foreground leading-[1.05]">
+            Four levers.<br className="hidden sm:block" /> Ten years of <span className="font-editorial text-[hsl(var(--growth))]">growth</span>,{" "}
+            <span className="font-editorial text-[hsl(var(--deficit))]">deficit</span>, and{" "}
+            <span className="font-editorial text-[hsl(var(--inequality))]">inequality</span>.
+          </h1>
+          <p className="mt-3 text-[13px] sm:text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            Move a slider, watch the projection redraw. The model is intentionally simple:
+            additive coefficients calibrated to peer-reviewed macro studies, applied to a
+            2025 U.S. baseline. Export a one-page brief when you find a scenario worth defending.
+          </p>
+        </div>
+        {/* Live baseline ticker */}
+        <div className="relative z-10 mt-6 marquee text-[11px] uppercase tracking-[0.16em] text-muted-foreground/80">
+          <div className="marquee-track">
+            <span><span className="text-[hsl(var(--growth))] font-semibold">GDP</span> baseline 2.1%</span>
+            <span className="opacity-40">•</span>
+            <span><span className="text-[hsl(var(--deficit))] font-semibold">Deficit</span> $1.83T</span>
+            <span className="opacity-40">•</span>
+            <span><span className="text-[hsl(var(--inequality))] font-semibold">Gini</span> 0.415</span>
+            <span className="opacity-40">•</span>
+            <span>Top marginal tax 37%</span>
+            <span className="opacity-40">•</span>
+            <span>Corporate tax 21%</span>
+            <span className="opacity-40">•</span>
+            <span>Fed funds 4.50%</span>
+            <span className="opacity-40">•</span>
+            <span>Welfare 11.4% GDP</span>
+            <span className="opacity-40">•</span>
+            <span><span className="text-[hsl(var(--growth))] font-semibold">GDP</span> baseline 2.1%</span>
+            <span className="opacity-40">•</span>
+            <span><span className="text-[hsl(var(--deficit))] font-semibold">Deficit</span> $1.83T</span>
+            <span className="opacity-40">•</span>
+            <span><span className="text-[hsl(var(--inequality))] font-semibold">Gini</span> 0.415</span>
+            <span className="opacity-40">•</span>
+            <span>Top marginal tax 37%</span>
+            <span className="opacity-40">•</span>
+            <span>Corporate tax 21%</span>
+            <span className="opacity-40">•</span>
+            <span>Fed funds 4.50%</span>
+            <span className="opacity-40">•</span>
+            <span>Welfare 11.4% GDP</span>
+          </div>
+        </div>
+        {/* Tri-color accent strip on bottom edge */}
+        <div className="absolute inset-x-0 bottom-0 h-[3px] tri-strip" aria-hidden />
       </section>
 
       {/* Active scenario banner + Export CTA */}
@@ -305,7 +354,7 @@ export default function SimulatorPage() {
             <ChartCard
               title="Gini Coefficient · 10-Year Trajectory"
               subtitle="Higher = more income inequality"
-              accent="deficit"
+              accent="inequality"
             >
               <GiniChart data={result.series} />
             </ChartCard>
@@ -337,7 +386,7 @@ function ChartCard({
 }: {
   title: string;
   subtitle?: string;
-  accent?: "growth" | "deficit" | "neutral";
+  accent?: "growth" | "deficit" | "inequality" | "neutral";
   children: React.ReactNode;
 }) {
   const accentClass =
@@ -345,6 +394,8 @@ function ChartCard({
       ? "bg-[hsl(var(--growth))]"
       : accent === "deficit"
       ? "bg-[hsl(var(--deficit))]"
+      : accent === "inequality"
+      ? "bg-[hsl(var(--inequality))]"
       : "bg-foreground";
   return (
     <div className="rounded-lg border border-card-border bg-card p-4 sm:p-5">

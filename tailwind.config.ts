@@ -89,6 +89,10 @@ export default {
           DEFAULT: "hsl(var(--deficit) / <alpha-value>)",
           soft: "hsl(var(--deficit-soft) / <alpha-value>)",
         },
+        inequality: {
+          DEFAULT: "hsl(var(--inequality) / <alpha-value>)",
+          soft: "hsl(var(--inequality-soft) / <alpha-value>)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

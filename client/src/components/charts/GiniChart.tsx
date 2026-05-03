@@ -36,8 +36,8 @@ export function GiniChart({ data }: { data: YearProjection[] }) {
         >
           <defs>
             <linearGradient id="giniArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="hsl(var(--deficit))" stopOpacity={0.18} />
-              <stop offset="100%" stopColor="hsl(var(--deficit))" stopOpacity={0.0} />
+              <stop offset="0%" stopColor="hsl(var(--inequality))" stopOpacity={0.18} />
+              <stop offset="100%" stopColor="hsl(var(--inequality))" stopOpacity={0.0} />
             </linearGradient>
           </defs>
           <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="2 4" vertical={false} />
@@ -92,9 +92,9 @@ export function GiniChart({ data }: { data: YearProjection[] }) {
           <Line
             type="monotone"
             dataKey="gini"
-            stroke="hsl(var(--deficit))"
+            stroke="hsl(var(--inequality))"
             strokeWidth={2.25}
-            dot={{ r: 3.5, fill: "hsl(var(--deficit))", stroke: "hsl(var(--card))", strokeWidth: 1.5 }}
+            dot={{ r: 3.5, fill: "hsl(var(--inequality))", stroke: "hsl(var(--card))", strokeWidth: 1.5 }}
             activeDot={{ r: 4.5 }}
             isAnimationActive={false}
           />

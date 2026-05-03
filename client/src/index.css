@@ -4,8 +4,8 @@
 
 /* EconLever — Institutional/data-forward palette
    Inspired by FRED, FiveThirtyEight, and Bloomberg Terminal aesthetics.
-   Deep navy surfaces, crisp white panels, emerald (positive/growth),
-   crimson (deficit/inequality), gold (neutral data accent). */
+   Deep navy surfaces, crisp white panels, emerald (growth),
+   amber (deficit), violet (inequality). */
 
 /* LIGHT MODE */
 :root {
@@ -48,22 +48,24 @@
   --input: 215 16% 82%;
   --ring: 215 50% 18%;
 
-  /* Chart palette — emerald (growth), crimson (deficit/inequality), navy, gold, slate */
+  /* Chart palette — emerald (growth), amber (deficit), violet (inequality), navy, slate */
   --chart-1: 158 64% 38%;   /* emerald — GDP growth */
-  --chart-2: 354 70% 48%;   /* crimson — deficit / inequality */
-  --chart-3: 215 50% 22%;   /* navy */
-  --chart-4: 38 92% 50%;    /* gold */
+  --chart-2: 22 92% 48%;    /* amber — deficit */
+  --chart-3: 271 70% 52%;   /* violet — inequality */
+  --chart-4: 215 50% 22%;   /* navy */
   --chart-5: 215 14% 50%;   /* slate */
 
-  /* Semantic data colors used directly in components */
+  /* Semantic data colors — three distinct hues, one per outcome channel */
   --growth: 158 64% 38%;
   --growth-soft: 158 64% 95%;
-  --deficit: 354 70% 48%;
-  --deficit-soft: 354 70% 96%;
+  --deficit: 22 92% 48%;
+  --deficit-soft: 22 92% 95%;
+  --inequality: 271 70% 52%;
+  --inequality-soft: 271 70% 96%;
   --neutral-data: 38 92% 50%;
 
   --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Georgia, serif;
+  --font-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --radius: 0.5rem;
 
@@ -133,16 +135,18 @@
   --input: 215 30% 22%;
   --ring: 158 64% 50%;
 
-  --chart-1: 158 64% 50%;
-  --chart-2: 354 75% 60%;
-  --chart-3: 210 80% 70%;
-  --chart-4: 38 92% 60%;
+  --chart-1: 158 64% 52%;
+  --chart-2: 22 92% 60%;
+  --chart-3: 271 80% 68%;
+  --chart-4: 210 80% 70%;
   --chart-5: 215 14% 60%;
 
-  --growth: 158 64% 50%;
+  --growth: 158 64% 52%;
   --growth-soft: 158 40% 14%;
-  --deficit: 354 75% 60%;
-  --deficit-soft: 354 40% 16%;
+  --deficit: 22 92% 60%;
+  --deficit-soft: 22 60% 16%;
+  --inequality: 271 80% 68%;
+  --inequality-soft: 271 50% 18%;
   --neutral-data: 38 92% 60%;
 
   --shadow-2xs: 0px 1px 1px 0px hsl(0 0% 0% / 0.4);
@@ -259,6 +263,132 @@
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
+  }
+
+  /* Editorial serif accent — used sparingly on hero words */
+  .font-editorial {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.01em;
+  }
+
+  /* Aurora background — three soft gradient blobs in tri-color, drift slowly */
+  .aurora-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+  .dark .aurora-blob {
+    opacity: 0.32;
+  }
+  .aurora-blob.growth {
+    width: 520px; height: 520px;
+    left: -120px; top: -160px;
+    background: radial-gradient(closest-side, hsl(var(--growth) / 0.55), transparent 70%);
+    animation: aurora-drift-1 22s ease-in-out infinite alternate;
+  }
+  .aurora-blob.deficit {
+    width: 460px; height: 460px;
+    right: -80px; top: -100px;
+    background: radial-gradient(closest-side, hsl(var(--deficit) / 0.45), transparent 70%);
+    animation: aurora-drift-2 26s ease-in-out infinite alternate;
+  }
+  .aurora-blob.inequality {
+    width: 540px; height: 540px;
+    left: 40%; top: -40px;
+    background: radial-gradient(closest-side, hsl(var(--inequality) / 0.40), transparent 70%);
+    animation: aurora-drift-3 30s ease-in-out infinite alternate;
+  }
+  @keyframes aurora-drift-1 {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(60px,30px,0) scale(1.08); }
+  }
+  @keyframes aurora-drift-2 {
+    from { transform: translate3d(0,0,0) scale(1.05); }
+    to   { transform: translate3d(-50px,40px,0) scale(0.96); }
+  }
+  @keyframes aurora-drift-3 {
+    from { transform: translate3d(-30px,0,0) scale(0.96); }
+    to   { transform: translate3d(40px,20px,0) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-blob { animation: none !important; }
+    .marquee-track { animation: none !important; }
+    .hero-rise { animation: none !important; }
+  }
+
+  /* Underline-on-hover for nav links */
+  .nav-underline {
+    position: relative;
+  }
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--growth)), hsl(var(--inequality)), hsl(var(--deficit)));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 2px;
+  }
+  .nav-underline:hover::after,
+  .nav-underline[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Hero rise — subtle entrance */
+  .hero-rise > * {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: hero-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-rise > *:nth-child(1) { animation-delay: 60ms; }
+  .hero-rise > *:nth-child(2) { animation-delay: 220ms; }
+  .hero-rise > *:nth-child(3) { animation-delay: 360ms; }
+  @keyframes hero-rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Marquee ticker for baseline metrics */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 2.5rem;
+    padding-left: 100%;
+    animation: marquee-slide 38s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes marquee-slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+
+  /* Tri-color gradient accent strip */
+  .tri-strip {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--growth)) 0%,
+      hsl(var(--growth)) 33%,
+      hsl(var(--inequality)) 33%,
+      hsl(var(--inequality)) 66%,
+      hsl(var(--deficit)) 66%,
+      hsl(var(--deficit)) 100%
+    );
   }
 
   /* Subtle data-grid pattern for chart card backgrounds */

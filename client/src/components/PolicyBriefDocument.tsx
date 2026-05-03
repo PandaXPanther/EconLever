@@ -304,7 +304,7 @@ function MetricBox({
   tone?: "growth" | "deficit";
   hint?: string;
 }) {
-  const accent = tone === "growth" ? "#0e9f6e" : tone === "deficit" ? "#c11d3a" : "#0b1f3a";
+  const accent = tone === "growth" ? "#0e9f6e" : tone === "deficit" ? "#dd5a14" : "#0b1f3a";
   return (
     <div
       style={{

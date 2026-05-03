@@ -32,14 +32,16 @@ export function SiteHeader() {
         <nav className="flex items-center gap-1 sm:gap-2">
           <Link
             href="/"
-            className={`${navLinkClass(path === "/")} rounded-md px-3 py-1.5 hover-elevate active-elevate-2`}
+            className={`${navLinkClass(path === "/")} nav-underline rounded-md px-3 py-1.5`}
+            data-active={path === "/" ? "true" : "false"}
             data-testid="link-nav-simulator"
           >
             Simulator
           </Link>
           <Link
             href="/about"
-            className={`${navLinkClass(path === "/about")} rounded-md px-3 py-1.5 hover-elevate active-elevate-2`}
+            className={`${navLinkClass(path === "/about")} nav-underline rounded-md px-3 py-1.5`}
+            data-active={path === "/about" ? "true" : "false"}
             data-testid="link-nav-about"
           >
             Methodology

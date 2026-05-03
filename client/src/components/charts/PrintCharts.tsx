@@ -35,8 +35,8 @@ export function PrintGiniChart({ data }: { data: YearProjection[] }) {
     >
       <defs>
         <linearGradient id="giniAreaPrint" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#c11d3a" stopOpacity={0.18} />
-          <stop offset="100%" stopColor="#c11d3a" stopOpacity={0} />
+          <stop offset="0%" stopColor="#7e22ce" stopOpacity={0.18} />
+          <stop offset="100%" stopColor="#7e22ce" stopOpacity={0} />
         </linearGradient>
       </defs>
       <CartesianGrid stroke="#e2e6ec" strokeDasharray="2 4" vertical={false} />
@@ -66,9 +66,9 @@ export function PrintGiniChart({ data }: { data: YearProjection[] }) {
       <Line
         type="monotone"
         dataKey="gini"
-        stroke="#c11d3a"
+        stroke="#7e22ce"
         strokeWidth={2}
-        dot={{ r: 2, fill: "#c11d3a", strokeWidth: 0 }}
+        dot={{ r: 2, fill: "#7e22ce", strokeWidth: 0 }}
         isAnimationActive={false}
       />
     </ComposedChart>
@@ -98,7 +98,7 @@ export function PrintGdpDeficitChart({ data }: { data: YearProjection[] }) {
         iconType="square"
         iconSize={8}
       />
-      <Bar dataKey="deficit" name="Deficit (% GDP)" fill="#c11d3a" radius={[2, 2, 0, 0]} isAnimationActive={false} />
+      <Bar dataKey="deficit" name="Deficit (% GDP)" fill="#dd5a14" radius={[2, 2, 0, 0]} isAnimationActive={false} />
       <Line
         type="monotone"
         dataKey="gdpGrowth"

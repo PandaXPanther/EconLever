@@ -10,6 +10,15 @@ export default function AboutPage() {
     canonical: "https://econlever.org/#/about",
     keywords:
       "econlever methodology, fiscal multiplier coefficients, Mertens Ravn 2013, Ramey 2011, Coibion 2017, Auerbach Gorodnichenko, Bernanke Blinder, Gini coefficient model, macroeconomic simulator citations",
+    jsonLdId: "about-breadcrumb",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Simulator", item: "https://econlever.org/" },
+        { "@type": "ListItem", position: 2, name: "Methodology", item: "https://econlever.org/#/about" },
+      ],
+    },
   });
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
@@ -307,7 +316,7 @@ function CoefRow({
         </span>
       </td>
       <td className="py-2 text-right">
-        <span className={c.giniPerPoint >= 0 ? "text-[hsl(var(--deficit))]" : "text-[hsl(var(--growth))]"}>
+        <span className={c.giniPerPoint >= 0 ? "text-[hsl(var(--inequality))]" : "text-[hsl(var(--growth))]"}>
           {c.giniPerPoint >= 0 ? "+" : ""}
           {c.giniPerPoint.toFixed(4)}
         </span>

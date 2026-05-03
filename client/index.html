@@ -27,16 +27,24 @@
     <meta property="og:title" content="EconLever · Interactive U.S. Fiscal &amp; Monetary Policy Simulator" />
     <meta property="og:description" content="Adjust four policy levers (top marginal tax, corporate tax, welfare spending, federal funds rate) and watch a 10-year projection of GDP, deficit, and inequality update live. Export a one-page Policy Brief." />
     <meta property="og:image" content="https://econlever.org/econlever-logo.png" />
+    <meta property="og:image:secure_url" content="https://econlever.org/econlever-logo.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
     <meta property="og:image:alt" content="EconLever fiscal and monetary policy simulator" />
     <meta property="og:locale" content="en_US" />
+    <link rel="alternate" hreflang="en-US" href="https://econlever.org/" />
+    <link rel="alternate" hreflang="x-default" href="https://econlever.org/" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="EconLever · Fiscal &amp; Monetary Policy Simulator" />
     <meta name="twitter:description" content="Project 10 years of U.S. GDP, deficit, and Gini inequality under any tax, welfare, or Fed policy mix. Free, calibrated to peer-reviewed research, and debate-ready." />
     <meta name="twitter:image" content="https://econlever.org/econlever-logo.png" />
+    <meta name="twitter:image:alt" content="EconLever fiscal and monetary policy simulator" />
+    <meta name="twitter:domain" content="econlever.org" />
 
-    <!-- Structured data -->
+    <!-- Structured data — WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -45,6 +53,9 @@
       "url": "https://econlever.org/",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "inLanguage": "en-US",
+      "image": "https://econlever.org/econlever-logo.png",
       "description": "Interactive macroeconomic simulator visualizing the 10-year impact of fiscal and monetary policy on U.S. GDP, federal deficits, and income inequality.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "creator": {
@@ -55,7 +66,73 @@
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student"
+      },
+      "featureList": [
+        "Adjustable top marginal tax rate",
+        "Adjustable corporate tax rate",
+        "Adjustable welfare spending share of GDP",
+        "Adjustable federal funds rate",
+        "10-year GDP, deficit, and Gini coefficient projections",
+        "Exportable one-page Policy Brief PDF",
+        "Reaganomics, Keynesian, and Austerity preset scenarios"
+      ]
+    }
+    </script>
+
+    <!-- Structured data — Organization / Site — helps Google understand the site -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "EconLever",
+      "url": "https://econlever.org/",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@type": "Person",
+        "name": "Saras Totey"
       }
+    }
+    </script>
+
+    <!-- Structured data — FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is EconLever?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EconLever is a free interactive simulator that projects 10 years of U.S. GDP growth, the federal deficit, and the Gini coefficient under different tax, welfare, and Federal Reserve policy choices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What four levers does EconLever model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Top marginal income tax rate, corporate tax rate, welfare spending as a share of GDP, and the federal funds rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are the coefficients calibrated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lever coefficients are derived from peer-reviewed macroeconomic research and applied additively to a 2025 U.S. baseline. The full methodology and coefficient table are documented on the Methodology page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is EconLever free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. EconLever is free, runs entirely in your browser, and requires no account. You can also export a one-page Policy Brief as a PDF."
+          }
+        }
+      ]
     }
     </script>
   </head>

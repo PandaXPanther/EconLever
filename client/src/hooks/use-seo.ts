@@ -14,6 +14,10 @@ export interface PageSeo {
   canonical?: string;
   /** Optional comma-separated keyword list, page-specific. */
   keywords?: string;
+  /** Optional JSON-LD payload to inject as application/ld+json on this page. */
+  jsonLd?: object | object[];
+  /** Stable id used as the script[id] for the per-page JSON-LD block. */
+  jsonLdId?: string;
 }
 
 const SITE = "https://econlever.org";
@@ -40,7 +44,7 @@ function setLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-export function useSeo({ title, description, canonical, keywords }: PageSeo) {
+export function useSeo({ title, description, canonical, keywords, jsonLd, jsonLdId }: PageSeo) {
   useEffect(() => {
     document.title = title;
     setMeta("name", "description", description);
@@ -57,4 +61,20 @@ export function useSeo({ title, description, canonical, keywords }: PageSeo) {
     setLink("canonical", url);
     setMeta("property", "og:url", url);
   }, [title, description, canonical, keywords]);
+
+  useEffect(() => {
+    if (!jsonLd || !jsonLdId) return;
+    const id = `ld-${jsonLdId}`;
+    let el = document.head.querySelector<HTMLScriptElement>(`script[id="${id}"]`);
+    if (!el) {
+      el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = id;
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify(jsonLd);
+    return () => {
+      el?.remove();
+    };
+  }, [jsonLd, jsonLdId]);
 }
