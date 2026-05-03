@@ -37,15 +37,13 @@ export default function AboutPage() {
 
       <Section heading="Purpose">
         <p>
-          Most economics tools sit at one of two extremes. On one end you have DSGE
-          and VAR models locked behind paywalls and PhD prerequisites. On the other,
-          there are single-issue calculators that answer one question and stop. Neither
-          is useful when you have to defend a fiscal claim in cross-examination.
-        </p>
-        <p>
-          EconLever tries to live in the middle: <strong className="text-foreground">simple
-          enough to manipulate live in front of a judge, transparent enough that the
-          numbers are sourced and the assumptions are spelled out.</strong>
+          High-school and college extemporaneous speakers, AP Economics students,
+          and policy debaters routinely need to cite the directional consequences
+          of fiscal and monetary policy in under 30 seconds of speaking time.
+          Existing tools are either too academic (DSGE/VAR models behind paywalls)
+          or too superficial (single-issue calculators). EconLever sits in
+          between: <strong className="text-foreground">simple enough to manipulate
+          live, transparent enough to defend in cross-examination.</strong>
         </p>
       </Section>
 
@@ -230,27 +228,54 @@ export default function AboutPage() {
           </div>
           <p className="text-[14px] leading-relaxed text-muted-foreground">
             Saras Totey is a student at Fairview High School and a Research
-            Analyst Assistant at Northeastern University. His current research
-            looks at the socioeconomic legacy of Reaganomics, specifically how
-            the 1981 to 1989 reductions in top marginal rates and welfare spending
-            shaped post-tax income disparity.
+            Analyst Assistant at Northeastern University, where he assists with
+            research on the socioeconomic legacy of Reaganomics—specifically
+            analyzing how the 1981–1989 reduction in top marginal rates and
+            welfare retrenchment shaped post-tax income disparity.
           </p>
           <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-            He is a 2x National Economics Challenge qualifier, an International
-            Economics Olympiad Winter Challenge bronze medalist, and a competitive
-            extemporaneous speaker. He builds tools that turn dense economics
-            research into something a student can actually use in a round.
+            He also serves as Head Economics Researcher at{" "}
+            <a
+              href="https://thedividendcollective.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-dividend-collective"
+            >
+              The Dividend Collective
+            </a>
+            , a youth-led economics and policy research organization.
           </p>
-          <a
-            href="https://www.linkedin.com/in/saras-totey-64a777334/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
-            data-testid="link-creator-linkedin"
-          >
-            LinkedIn
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+          <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+            A 2x National Economics Challenge (NEC) Qualifier and an
+            International Economics Olympiad (IEO) Winter Challenge Bronze
+            Medalist, Saras is also a competitive extemporaneous speaker and a
+            social-impact founder. He is dedicated to building tools that
+            translate dense economic research into accessible, decision-ready
+            interfaces for students, debaters, and civic audiences.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a
+              href="https://www.linkedin.com/in/saras-totey-64a777334/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-linkedin"
+            >
+              LinkedIn
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="https://thedividendcollective.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-dividend-collective-cta"
+            >
+              The Dividend Collective
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
       </Section>
     </div>
