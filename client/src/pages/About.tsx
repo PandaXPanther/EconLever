@@ -231,10 +231,8 @@ export default function AboutPage() {
             Analyst Assistant at Northeastern University, where he assists with
             research on the socioeconomic legacy of Reaganomics—specifically
             analyzing how the 1981–1989 reduction in top marginal rates and
-            welfare retrenchment shaped post-tax income disparity.
-          </p>
-          <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-            He also serves as Head Economics Researcher at{" "}
+            welfare retrenchment shaped post-tax income disparity. He also
+            serves as Head Economics Researcher at{" "}
             <a
               href="https://thedividendcollective.com"
               target="_blank"
