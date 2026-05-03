@@ -177,7 +177,7 @@ export default function SimulatorPage() {
               onClick={reset}
               variant="outline"
               size="sm"
-              className="gap-1.5 h-9 w-full sm:w-auto justify-center px-3"
+              className="gap-1.5 h-9 w-full sm:w-[220px] justify-center px-3"
               data-testid="button-reset"
             >
               <RotateCcw className="h-3.5 w-3.5 shrink-0" aria-hidden />
@@ -187,7 +187,7 @@ export default function SimulatorPage() {
               onClick={handleExport}
               disabled={exporting}
               size="sm"
-              className="gap-1.5 h-9 w-full sm:w-auto justify-center px-3"
+              className="gap-1.5 h-9 w-full sm:w-[220px] justify-center px-3"
               data-testid="button-export-brief"
             >
               {exporting ? (
