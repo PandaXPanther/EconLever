@@ -1,5 +1,5 @@
 import { COEFFICIENTS, BASELINE } from "@/lib/engine";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Coffee } from "lucide-react";
 import { useSeo } from "@/hooks/use-seo";
 
 export default function AboutPage() {
@@ -319,6 +319,22 @@ export default function AboutPage() {
             >
               The Dividend Collective
               <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <div className="mt-5 pt-5 border-t border-card-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              EconLever is free and ad-free. If it has helped you in a round
+              or a class, you can chip in to keep new tools coming.
+            </p>
+            <a
+              href="https://www.buymeacoffee.com/sarast1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-md border border-card-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground hover-elevate active-elevate-2 whitespace-nowrap"
+              data-testid="link-buymeacoffee-about"
+            >
+              <Coffee className="h-3.5 w-3.5" aria-hidden />
+              Buy me a coffee
             </a>
           </div>
         </div>
