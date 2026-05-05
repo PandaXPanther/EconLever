@@ -324,7 +324,7 @@ export default function AboutPage() {
           <div className="mt-5 pt-5 border-t border-card-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-[13px] leading-relaxed text-muted-foreground">
               EconLever is free and ad-free. If it has helped you in a round
-              or a class, you can chip in to keep new tools coming.
+              or a class, an optional tip helps keep new tools shipping.
             </p>
             <a
               href="https://www.buymeacoffee.com/sarast1"
@@ -332,9 +332,10 @@ export default function AboutPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-md border border-card-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground hover-elevate active-elevate-2 whitespace-nowrap"
               data-testid="link-buymeacoffee-about"
+              aria-label="Leave a tip on Buy Me a Coffee"
             >
               <Coffee className="h-3.5 w-3.5" aria-hidden />
-              Buy me a coffee
+              Leave a tip
             </a>
           </div>
         </div>

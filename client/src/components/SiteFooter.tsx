@@ -15,9 +15,10 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-md border border-card-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover-elevate active-elevate-2"
             data-testid="link-buymeacoffee-footer"
+            aria-label="Leave a tip on Buy Me a Coffee"
           >
             <Coffee className="h-3 w-3" aria-hidden />
-            Buy me a coffee
+            Leave a tip
           </a>
           <p className="text-xs text-muted-foreground">
             Part of{" "}
