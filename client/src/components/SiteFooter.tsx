@@ -31,7 +31,7 @@ export function SiteFooter() {
             >
               econ.mom
             </a>
-            {" "}· developed by{" "}
+            {" "}· built by{" "}
             <a
               href="https://www.linkedin.com/in/saras-totey-64a777334/"
               target="_blank"
@@ -40,6 +40,16 @@ export function SiteFooter() {
               data-testid="link-creator"
             >
               Saras Totey
+            </a>
+            {" "}@{" "}
+            <a
+              href="https://attagency.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              data-testid="link-att-agency-footer"
+            >
+              ATT Agency
             </a>
           </p>
         </div>

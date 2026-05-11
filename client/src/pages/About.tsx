@@ -269,6 +269,18 @@ export default function AboutPage() {
               The Dividend Collective
             </a>
             , a youth-led economics and policy research organization.
+            Outside research, he is also a co-founder of{" "}
+            <a
+              href="https://attagency.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-att-agency"
+            >
+              ATT Agency
+            </a>
+            {" "}(attagency.co), a creative studio building digital products and
+            brand experiences for student-led ventures and small businesses.
           </p>
           <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
             A 2x National Economics Challenge (NEC) Qualifier and an
@@ -318,6 +330,16 @@ export default function AboutPage() {
               data-testid="link-creator-dividend-collective-cta"
             >
               The Dividend Collective
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="https://attagency.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              data-testid="link-creator-att-agency-cta"
+            >
+              ATT Agency
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
